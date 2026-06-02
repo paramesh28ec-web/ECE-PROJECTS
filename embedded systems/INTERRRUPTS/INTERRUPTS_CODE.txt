@@ -1,0 +1,24 @@
+void setup() {
+  pinMode(3, OUTPUT);
+  pinMode(2, INPUT_PULLUP);
+Serial.begin(9600);
+  
+attachInterrupt(digitalPinToInterrupt(2), Ledon, CHANGE);
+}
+void loop() {
+  // nothing here!
+}
+
+void Ledon() {
+int x=digitalRead(2);
+Serial.println(x);
+if(x == 1)
+  {
+  digitalWrite(3, HIGH);
+}
+  else
+  {
+    digitalWrite(3, LOW);
+}
+}
+    

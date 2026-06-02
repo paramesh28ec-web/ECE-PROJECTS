@@ -1,0 +1,68 @@
+void setup() {
+  for (int i = 2; i <= 13; i++) {
+    pinMode(i, OUTPUT);
+  }
+}
+
+void allRed() {
+  
+  digitalWrite(13, HIGH); 
+  digitalWrite(4, HIGH);  
+
+ 
+  digitalWrite(7, LOW);  
+  digitalWrite(10, LOW); 
+
+  
+  digitalWrite(2, LOW);  digitalWrite(3, LOW);
+  digitalWrite(5, LOW);  digitalWrite(6, LOW);
+  digitalWrite(8, HIGH); digitalWrite(9, HIGH);
+  digitalWrite(11, HIGH);digitalWrite(12, HIGH);
+}
+
+void loop() {
+
+  
+  allRed();
+  digitalWrite(13, LOW);     
+  digitalWrite(3, HIGH);     
+  delay(3000);
+
+  digitalWrite(3, LOW);      
+  digitalWrite(2, HIGH);     
+  delay(3000);
+  digitalWrite(2, LOW);     
+
+  
+  allRed();
+  digitalWrite(4, LOW);      
+  digitalWrite(6, HIGH);     
+  delay(2500);
+
+  digitalWrite(6, LOW);      
+  digitalWrite(5, HIGH);    
+  delay(3000);
+  digitalWrite(5, LOW);      
+
+  
+  allRed();
+  digitalWrite(7, HIGH);    
+  digitalWrite(9, LOW);      
+  delay(1500);
+
+  digitalWrite(9, HIGH);     
+  digitalWrite(8, LOW);      
+  delay(3000);
+  digitalWrite(8, HIGH);     
+
+  
+  allRed();
+  digitalWrite(10, HIGH);    
+  digitalWrite(12, LOW);    
+  delay(2000);
+
+  digitalWrite(12, HIGH);    
+  digitalWrite(11, LOW);     
+  delay(3000);
+  digitalWrite(11, HIGH);    
+}

@@ -1,0 +1,68 @@
+#define LED1 2
+#define LED2 3
+#define LED3 4
+
+#define PIR 7
+#define TRIG 8
+#define ECHO 9
+
+#define TEMP A0
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+
+  pinMode(PIR, INPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  Serial.begin(9600);
+}
+
+float getDistance() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  long duration = pulseIn(ECHO, HIGH);
+  float distance = duration * 0.034 / 2;
+  return distance;
+}
+
+float getTemperature() {
+  int sensorValue = analogRead(TEMP);
+  float voltage = sensorValue * (5.0 / 1023.0);
+  float tempC = (voltage - 0.5) * 100;
+  return tempC;
+}
+
+void loop() {
+  float temp = getTemperature();
+  float distance = getDistance();
+  int motion = digitalRead(PIR);
+
+  // Turn OFF all LEDs first
+  digitalWrite(LED1, LOW);
+  digitalWrite(LED2, LOW);
+  digitalWrite(LED3, LOW);
+
+  if (motion == HIGH) {
+
+    if (temp >= 20 && temp <= 30 && distance >= 50 && distance <= 100) {
+      digitalWrite(LED1, HIGH);
+    }
+
+    else if (temp >= 40 && temp <= 50 && distance >= 100 && distance <= 150) {
+      digitalWrite(LED2, HIGH);
+    }
+
+    else if (temp >= 60 && temp <= 80 && distance >= 200 && distance <= 300) {
+      digitalWrite(LED3, HIGH);
+    }
+  }
+
+  delay(500);
+}

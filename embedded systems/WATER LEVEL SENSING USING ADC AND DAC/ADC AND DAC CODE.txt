@@ -1,0 +1,43 @@
+#define TRIG 8
+#define ECHO 9
+#define MOTOR 5   // transistor base pin
+
+long duration;
+float distance;
+
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(MOTOR, OUTPUT);
+
+  digitalWrite(MOTOR, LOW);   // motor OFF at start
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Ultrasonic trigger
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 0.034 / 2;
+
+  // STRICT LOGIC
+  if (distance >= 300) {
+    digitalWrite(MOTOR, HIGH);   // MOTOR ON
+  }
+  else if (distance <= 30) {
+    digitalWrite(MOTOR, LOW);    // MOTOR OFF
+  }
+  else {
+    digitalWrite(MOTOR, LOW);    // FORCE OFF
+  }
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  delay(300);
+}
